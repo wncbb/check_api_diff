@@ -72,7 +72,9 @@ func Check() {
 
 		diffStr, err := idiff.RunCompare(OnlinePOIHost(), DebugPOIHost(), "hostname", v)
 		if err != nil {
-			log.Default().Errorf("diff.RunCompare err:%#v\n", err)
+			log.Default().Errorf("diff.RunCompare err:%s\n", err)
+			errColor := color.New(color.FgWhite, color.BgRed).SprintFunc()
+			fmt.Printf("DIFF: %s  ID: %s/%s\n", errColor("err: "+err.Error()), v.Prefix, v.Name)
 			continue
 		}
 

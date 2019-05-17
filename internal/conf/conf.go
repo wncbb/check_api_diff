@@ -29,7 +29,7 @@ func initReq(reqFile string) {
 
 	err = json.Unmarshal(data, req)
 	if err != nil {
-		log.Default().Errorf("unmarshal req conf failed, err:%#v", err)
+		log.Default().Errorf("unmarshal req conf failed, data:%s, err:%s", string(data), err)
 		panic(err)
 	}
 	reqBytes, _ := json.MarshalIndent(req, "", "  ")
@@ -63,7 +63,7 @@ func initEnv(envFile string) {
 func ReqConfByHost(poiHost string) *Req {
 	for _, v := range req.Item {
 		for _, vv := range v.Item {
-			vv.Request.URL = strings.Replace(vv.Request.URL, "{{hostname-int}}", "http://"+poiHost, 1)
+			vv.Request.URL.Raw = strings.Replace(vv.Request.URL.Raw, "{{hostname-int}}", "http://"+poiHost, 1)
 		}
 	}
 	return req

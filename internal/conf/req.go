@@ -3,7 +3,9 @@ package conf
 import (
 	"fmt"
 	"path"
-	// "github.com/wncbb/check_api_diff/internal/log"
+	"strings"
+
+	"github.com/wncbb/check_api_diff/pkg/tdurl"
 )
 
 type Req struct {
@@ -54,11 +56,39 @@ type ReqScript struct {
 }
 
 type ReqRequest struct {
-	URL         string          `json:"url"`
+	URL         *ReqURL         `json:"url"`
 	Method      string          `json:"method"`
 	Header      []*ReqHeaderRow `json:"header"`
 	Body        *ReqBody        `json:"body"`
 	Description string          `json:"description"`
+}
+
+type ReqURL struct {
+	Raw   string      `json:"raw"`
+	Host  []string    `json:"host"`
+	Path  []string    `json:"path"`
+	Query []*ReqQuery `json:"query"`
+}
+
+func (r *ReqURL) URL() string {
+	u := tdurl.NewURL().SetHost(r.Host[0]).SetPath("/" + strings.Join(r.Path, "/"))
+	for _, v := range r.Query {
+		u.AddQueryValue(v.Key, v.Value)
+	}
+	return u.URL()
+}
+
+func (r *ReqURL) URLWithHost(host string) string {
+	u := tdurl.NewURL().SetScheme("http").SetHost(host).SetPath("/" + strings.Join(r.Path, "/"))
+	for _, v := range r.Query {
+		u.AddQueryValue(v.Key, v.Value)
+	}
+	return u.URL()
+}
+
+type ReqQuery struct {
+	Key   string `json:"key"`
+	Value string `json:"value"`
 }
 
 func (r *ReqRequest) ShowLines() []string {

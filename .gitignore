@@ -2,3 +2,4 @@ logs/*
 configs/*
 *.diff
 output/*
+Makefile

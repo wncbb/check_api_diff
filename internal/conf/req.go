@@ -94,7 +94,8 @@ type ReqQuery struct {
 func (r *ReqRequest) ShowLines() []string {
 	res := make([]string, 0)
 	res = append(res, fmt.Sprintf("Description: %s", r.Description))
-	res = append(res, fmt.Sprintf("URL: %s", r.URL))
+	// res = append(res, fmt.Sprintf("URL:"))
+	res = append(res, fmt.Sprintf("URL: %s", r.URL.Raw))
 	res = append(res, fmt.Sprintf("Method: %s", r.Method))
 	res = append(res, fmt.Sprintf("Header:"))
 	for _, v := range r.Header {

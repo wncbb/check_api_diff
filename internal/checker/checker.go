@@ -74,7 +74,7 @@ func Check() {
 		if err != nil {
 			log.Default().Errorf("diff.RunCompare err:%s\n", err)
 			errColor := color.New(color.FgWhite, color.BgRed).SprintFunc()
-			fmt.Printf("DIFF: %s  ID: %s/%s\n", errColor("err: "+err.Error()), v.Prefix, v.Name)
+			fmt.Printf("DIFF: %s  ID: %s/%s.diff\n", errColor("err: "+err.Error()), v.Prefix, v.Name)
 			continue
 		}
 
@@ -95,7 +95,7 @@ func Check() {
 			delNumStr = color.RedString(delNumStr)
 		}
 
-		fmt.Printf("DIFF: %s %s  ID: %s/%s\n", addNumStr, delNumStr, v.Prefix, v.Name)
+		fmt.Printf("DIFF: %s %s  ID: %s/%s.diff\n", addNumStr, delNumStr, v.Prefix, v.Name)
 
 	}
 	return

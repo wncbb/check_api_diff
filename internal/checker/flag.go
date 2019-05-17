@@ -104,7 +104,7 @@ func ParseFlag() {
 
 	flag.Parse()
 
-	fmt.Printf(StartString("CONF", "\n", ""))
+	fmt.Printf(StartString("CONF", "\n", "\n"))
 	fmt.Printf("Flag parsed: %v\n", flag.Parsed())
 	fmt.Printf("EnvFile: %s\n", envFile)
 	fmt.Printf("ReqFile: %s\n", reqFile)
